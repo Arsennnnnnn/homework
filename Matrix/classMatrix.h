@@ -13,7 +13,8 @@ public:
     matrix& operator++();
     matrix operator++(int);
     int *operator[](int index);
-    void print();
+    bool readFromFile(const std::string &filename);
+    void writeToFile(const std::string &filename) const;
     void setRow(const int row);
     void getRow() const;
     void setCol(const int col);

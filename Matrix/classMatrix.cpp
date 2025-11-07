@@ -1,5 +1,5 @@
 #include <iostream>
-
+#include <fstream>
 #include "classMatrix.h"
 
 matrix::matrix()
@@ -53,7 +53,6 @@ matrix::~matrix() {
         delete[] m_matrix[i];
     }
     delete[] m_matrix;
-    std::cout << __func__ << std::endl;
 }
 
 matrix& matrix::operator=(const matrix& other) {
@@ -87,7 +86,7 @@ matrix matrix::operator*(int a) {
 
 matrix matrix::operator*(const matrix& other) {
     if (m_col != other.m_row) {
-        std::cout << "Can't multiply those matrixes." << std::endl;
+        std::cout << "Can't multiply those matrices." << std::endl;
         return matrix();
     }
     matrix result(m_row, other.m_col);
@@ -136,3 +135,58 @@ int* matrix::operator[](int index) {
     }
     return m_matrix[index];
 }
+bool matrix::readFromFile(const std::string& filename) {
+        std::ifstream file(filename);
+        if (!file) {
+            std::cout << "Error: Could not open file " << filename << std::endl;
+            return false;
+        }
+        int rows, cols;
+        file >> rows >> cols;
+        if (rows <= 0 || cols <= 0) {
+            std::cout << "Error: Invalid dimensions" << std::endl;
+            file.close();
+            return false;
+        }
+        if (m_matrix != nullptr) {
+            for (int i = 0; i < m_row; ++i) {
+                delete[] m_matrix[i];
+            }
+            delete[] m_matrix;
+        }
+        m_row = rows;
+        m_col = cols;
+        m_matrix = new int*[m_row];
+        for (int i = 0; i < m_row; ++i) {
+            m_matrix[i] = new int[m_col];
+        }
+        for (int i = 0; i < m_row; ++i) {
+            for (int j = 0; j < m_col; ++j) {
+                if (!(file >> m_matrix[i][j])) {
+                    std::cout << "Error: Not enough values in file" << std::endl;
+                    file.close();
+                    return false;
+                }
+            }
+        }
+        file.close();
+        std::cout << "Matrix successfully read from " << filename << std::endl;
+        return true;
+    }
+
+    void matrix::writeToFile(const std::string& filename) const {
+        std::ofstream file(filename);
+        if (!file) {
+            std::cout << "Error: Could not create file " << filename << std::endl;
+            return;
+        }
+        file << m_row << " " << m_col << std::endl;
+        for (int i = 0; i < m_row; ++i) {
+            for (int j = 0; j < m_col; ++j) {
+                file << m_matrix[i][j] << " ";
+            }
+            file << std::endl;
+        }
+        file.close();
+        std::cout << "Matrix successfully written to " << filename << std::endl;
+    }
