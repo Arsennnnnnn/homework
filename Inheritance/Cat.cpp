@@ -7,6 +7,10 @@ Cat::Cat(std::string species, std::string name)
 Cat::Cat(int age, int maxAge, int weight, int height, std::string species, std::string name)
     : Animal(age, maxAge, weight, height), m_species(species), m_name(name) {}
 
+Cat::~Cat() {
+    std::cout << __func__ << std::endl;
+}
+
 void Cat::makeSound() {
     std::cout << "Meow!" << std::endl;
 }

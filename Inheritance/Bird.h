@@ -11,6 +11,7 @@ public:
     Bird(std::string species, std::string name);
     Bird(int age, int maxAge, int weight, int height, std::string species, std::string name);
 
+    ~Bird() override;
     void makeSound() override;
     void Move() override;
 

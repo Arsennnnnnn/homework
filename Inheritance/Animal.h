@@ -11,7 +11,7 @@ private:
     int m_height;
 public:
     Animal() = default;
-    virtual ~Animal() = default;
+    virtual ~Animal();
     Animal(int, int, int, int);
     virtual void makeSound() = 0;
     virtual void Move() = 0;

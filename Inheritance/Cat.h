@@ -10,6 +10,7 @@ private:
 public:
     Cat(std::string species, std::string name);
     Cat(int age, int maxAge, int weight, int height, std::string species, std::string name);
+    ~Cat() override;
     void makeSound() override;
     void Move() override;
     void scratch();

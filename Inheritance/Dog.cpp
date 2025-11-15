@@ -1,6 +1,10 @@
 #include <iostream>
 #include "Dog.h"
 
+Dog::~Dog() {
+    std::cout << __func__ << std::endl;
+}
+
 Dog::Dog(std::string species, std::string name)
     : m_species(species), m_name(name) {}
 
