@@ -48,6 +48,7 @@ void matrix::init() {
     }
 }
 
+
 matrix::~matrix() {
     for (int i = 0; i < m_row; ++i) {
         delete[] m_matrix[i];
@@ -122,7 +123,7 @@ matrix matrix::operator++(int) {
 std::ostream& operator<<(std::ostream& os, const matrix& mat) {
     for (int i = 0; i < mat.m_row; ++i) {
         for (int j = 0; j < mat.m_col; ++j) {
-            os << mat.m_matrix[i][j] << ' ';
+            os << mat.m_matrix[i][j] << "  ";
         }
         os << '\n';
     }
@@ -135,6 +136,7 @@ int* matrix::operator[](int index) {
     }
     return m_matrix[index];
 }
+/*
 bool matrix::readFromFile(const std::string& filename) {
         std::ifstream file(filename);
         if (!file) {
@@ -190,3 +192,4 @@ bool matrix::readFromFile(const std::string& filename) {
         file.close();
         std::cout << "Matrix successfully written to " << filename << std::endl;
     }
+*/

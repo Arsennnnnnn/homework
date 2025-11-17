@@ -5,7 +5,8 @@ class matrix {
 public:
     matrix();
     matrix(const int, const int);
-    ~matrix();
+
+    virtual ~matrix();
     matrix(const matrix&);
     matrix& operator=(const matrix&);
     matrix operator*(int);
@@ -13,8 +14,8 @@ public:
     matrix& operator++();
     matrix operator++(int);
     int *operator[](int index);
-    bool readFromFile(const std::string &filename);
-    void writeToFile(const std::string &filename) const;
+    //bool readFromFile(const std::string &filename);
+    //void writeToFile(const std::string &filename) const;
     void setRow(const int row);
     void getRow() const;
     void setCol(const int col);
