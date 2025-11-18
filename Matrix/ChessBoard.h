@@ -8,6 +8,8 @@ private:
     int m_size;
 public:
     ChessBoard();
+    ChessBoard (const ChessBoard&) = default;
+    ChessBoard& operator = (const ChessBoard&) = default;
     ~ChessBoard() override = default;
 };
 
