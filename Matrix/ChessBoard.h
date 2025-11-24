@@ -10,6 +10,8 @@ public:
     ChessBoard();
     ChessBoard (const ChessBoard&) = default;
     ChessBoard& operator = (const ChessBoard&) = default;
+    ChessBoard (ChessBoard&&) = default;
+    ChessBoard& operator = (ChessBoard&&) = default;
     ~ChessBoard() override = default;
 };
 

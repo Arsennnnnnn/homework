@@ -8,6 +8,8 @@ public:
 
     virtual ~matrix();
     matrix(const matrix&);
+    matrix(matrix&&);
+    matrix& operator = (matrix&&);
     matrix& operator=(const matrix&);
     matrix operator*(int);
     matrix operator*(const matrix&);

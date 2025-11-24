@@ -24,6 +24,29 @@ matrix::matrix(const matrix& other) : m_row(other.m_row), m_col(other.m_col) {
     }
 }
 
+matrix::matrix(matrix && other)
+    : m_row(other.m_row), m_col(other.m_col), m_matrix(other.m_matrix) {
+    other.m_row = 0;
+    other.m_col = 0;
+    other.m_matrix = nullptr;
+}
+
+matrix & matrix::operator=(matrix && other) {
+    if (this != &other) {
+        for (int i = 0; i < m_row; ++i) {
+            delete[] m_matrix[i];
+        }
+        delete[] m_matrix;
+        m_row = other.m_row;
+        m_col = other.m_col;
+        m_matrix = other.m_matrix;
+        other.m_row = 0;
+        other.m_col = 0;
+        other.m_matrix = nullptr;
+    }
+    return *this;
+}
+
 void matrix::setRow(const int row) {
     m_row = row;
 }
