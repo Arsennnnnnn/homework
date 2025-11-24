@@ -11,6 +11,11 @@ private:
     int m_height;
 public:
     Animal() = default;
+
+    Animal(const Animal &) = default;
+
+    Animal(Animal &&);
+    Animal &operator=(Animal &&);
     virtual ~Animal();
     Animal(int, int, int, int);
     virtual void makeSound() = 0;

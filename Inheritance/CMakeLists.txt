@@ -19,4 +19,8 @@ add_executable(Inheritance main.cpp
         Elephant.cpp
         Elephant.h
         Zoo.cpp
-        Zoo.h)
+        Zoo.h
+        Amphibian.cpp
+        Amphibian.h
+        LandAnimal.h
+        WaterAnimal.h)
