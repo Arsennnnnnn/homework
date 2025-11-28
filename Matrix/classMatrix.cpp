@@ -2,16 +2,19 @@
 #include <fstream>
 #include "classMatrix.h"
 
+int matrix::count = 0;
+
 matrix::matrix()
     : m_row(0), m_col(0), m_matrix(nullptr) {
-        std::cout << __func__ << std::endl;
-    }
+    ++count;
+}
 
-matrix::matrix(const int row, const int col) : m_row(row), m_col(col) {
+matrix::matrix(int row, int col) : m_row(row), m_col(col) {
     m_matrix = new int*[row];
     for (int i = 0; i < row; ++i) {
         m_matrix[i] = new int[col]{};
     }
+    ++count;
 }
 
 matrix::matrix(const matrix& other) : m_row(other.m_row), m_col(other.m_col) {
@@ -22,6 +25,7 @@ matrix::matrix(const matrix& other) : m_row(other.m_row), m_col(other.m_col) {
             m_matrix[i][j] = other.m_matrix[i][j];
         }
     }
+    ++count;
 }
 
 matrix::matrix(matrix && other)
@@ -29,6 +33,7 @@ matrix::matrix(matrix && other)
     other.m_row = 0;
     other.m_col = 0;
     other.m_matrix = nullptr;
+    ++count;
 }
 
 matrix & matrix::operator=(matrix && other) {
@@ -71,11 +76,16 @@ void matrix::init() {
     }
 }
 
+int matrix::getCount() {
+    return count;
+}
+
 
 matrix::~matrix() {
     for (int i = 0; i < m_row; ++i) {
         delete[] m_matrix[i];
     }
+    --count;
     delete[] m_matrix;
 }
 
@@ -99,7 +109,7 @@ matrix& matrix::operator=(const matrix& other) {
     return *this;
 }
 matrix matrix::operator*(int a) {
-    matrix result(m_row, m_col);
+    matrix result(this -> m_row, this -> m_col);
     for (int i = 0; i < m_row; ++i) {
         for (int j = 0; j < m_col; ++j) {
             result.m_matrix[i][j] = m_matrix[i][j] * a;

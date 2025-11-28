@@ -4,7 +4,7 @@
 class matrix {
 public:
     matrix();
-    matrix(const int, const int);
+    matrix(int, int);
 
     virtual ~matrix();
     matrix(const matrix&);
@@ -23,11 +23,13 @@ public:
     void setCol(const int col);
     void getCol() const;
     void init();
+    static int getCount();
     friend std::ostream& operator<<(std::ostream& os, const matrix& mat);
 private:
     int m_row;
     int m_col;
     int **m_matrix;
+    static int count;
 };
 
 #endif //CLASSMATRIX_H

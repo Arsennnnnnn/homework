@@ -9,14 +9,16 @@ private:
     int m_maxAge;
     int m_weight;
     int m_height;
+    static int count;
 public:
-    Animal() = default;
+    Animal();;
 
-    Animal(const Animal &) = default;
+    Animal(const Animal &);
 
     Animal(Animal &&);
     Animal &operator=(Animal &&);
     virtual ~Animal();
+    static int getCount();
     Animal(int, int, int, int);
     virtual void makeSound() = 0;
     virtual void Move() = 0;
