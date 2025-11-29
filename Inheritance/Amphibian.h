@@ -4,7 +4,7 @@
 #include "WaterAnimal.h"
 #include "LandAnimal.h"
 
-class Amphibian : WaterAnimal, LandAnimal {
+class Amphibian : public WaterAnimal, public LandAnimal {
 public:
     void makeSound() override;
     void Move() override;

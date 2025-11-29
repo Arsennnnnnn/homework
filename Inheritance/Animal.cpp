@@ -49,6 +49,18 @@ Animal & Animal::operator=(Animal && other) {
     return *this;
 }
 
+bool Animal::operator>(const Animal &animal) const {
+    return this ->m_weight > animal.m_weight;
+}
+
+bool Animal::operator<(const Animal &animal) const {
+    return this -> m_weight < animal.m_weight;
+}
+
+bool Animal::operator==(const Animal &animal) const {
+    return this -> m_weight == animal.m_weight;
+}
+
 Animal::~Animal() {
     std::cout << "animal dtor" << std::endl;
     --count;

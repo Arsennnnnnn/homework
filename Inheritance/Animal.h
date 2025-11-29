@@ -17,6 +17,9 @@ public:
 
     Animal(Animal &&);
     Animal &operator=(Animal &&);
+    bool operator>(const Animal &) const;
+    bool operator<(const Animal &) const;
+    bool operator==(const Animal &) const;
     virtual ~Animal();
     static int getCount();
     Animal(int, int, int, int);
