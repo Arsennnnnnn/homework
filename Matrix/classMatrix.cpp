@@ -1,23 +1,21 @@
+/*
 #include <iostream>
 #include <fstream>
 #include "classMatrix.h"
-
-int matrix::count = 0;
-
-matrix::matrix()
+template<typename T>
+matrix<T>::matrix()
     : m_row(0), m_col(0), m_matrix(nullptr) {
-    ++count;
 }
 
-matrix::matrix(int row, int col) : m_row(row), m_col(col) {
+template<typename T>
+matrix<T>::matrix(int row, int col) : m_row(row), m_col(col) {
     m_matrix = new int*[row];
     for (int i = 0; i < row; ++i) {
         m_matrix[i] = new int[col]{};
     }
-    ++count;
 }
-
-matrix::matrix(const matrix& other) : m_row(other.m_row), m_col(other.m_col) {
+template<typename T>
+matrix<T>::matrix(const matrix<T>& other) : m_row(other.m_row), m_col(other.m_col) {
     m_matrix = new int*[m_row];
     for (int i = 0; i < m_row; ++i) {
         m_matrix[i] = new int[m_col];
@@ -25,18 +23,16 @@ matrix::matrix(const matrix& other) : m_row(other.m_row), m_col(other.m_col) {
             m_matrix[i][j] = other.m_matrix[i][j];
         }
     }
-    ++count;
 }
-
-matrix::matrix(matrix && other)
+template<typename T>
+matrix<T>::matrix(matrix<T> && other) noexcept
     : m_row(other.m_row), m_col(other.m_col), m_matrix(other.m_matrix) {
     other.m_row = 0;
     other.m_col = 0;
     other.m_matrix = nullptr;
-    ++count;
 }
-
-matrix & matrix::operator=(matrix && other) {
+template<typename T>
+matrix<T> & matrix<T>::operator=(matrix<T> && other) noexcept {
     if (this != &other) {
         for (int i = 0; i < m_row; ++i) {
             delete[] m_matrix[i];
@@ -52,23 +48,28 @@ matrix & matrix::operator=(matrix && other) {
     return *this;
 }
 
-void matrix::setRow(const int row) {
+template<typename T>
+void matrix<T>::setRow(int row) {
     m_row = row;
 }
 
-void matrix::getRow() const {
+template<typename T>
+void matrix<T>::getRow() const {
     std::cout << "Matrix row = " << m_row << std::endl;
 }
 
-void matrix::setCol(const int col) {
+template<typename T>
+void matrix<T>::setCol(int col) {
     m_col = col;
 }
 
-void matrix::getCol() const {
+template<typename T>
+void matrix<T>::getCol() const {
     std::cout << "Matrix col = " << m_col << std::endl;
 }
 
-void matrix::init() {
+template<typename T>
+void matrix<T>::init() {
     for (int i = 0; i < m_row; ++i) {
         for (int j = 0; j < m_col; ++j) {
             m_matrix[i][j] = i * m_col + j + 1;
@@ -76,20 +77,16 @@ void matrix::init() {
     }
 }
 
-int matrix::getCount() {
-    return count;
-}
-
-
-matrix::~matrix() {
+template<typename T>
+matrix<T>::~matrix() {
     for (int i = 0; i < m_row; ++i) {
         delete[] m_matrix[i];
     }
-    --count;
     delete[] m_matrix;
 }
 
-matrix& matrix::operator=(const matrix& other) {
+template<typename T>
+matrix<T>& matrix<T>::operator=(const matrix& other) {
     if (this != &other) {
         for (int i = 0; i < m_row; ++i) {
             delete[] m_matrix[i];
@@ -108,7 +105,9 @@ matrix& matrix::operator=(const matrix& other) {
     }
     return *this;
 }
-matrix matrix::operator*(int a) {
+
+template<typename T>
+matrix<T> matrix<T>::operator*(int a) {
     matrix result(this -> m_row, this -> m_col);
     for (int i = 0; i < m_row; ++i) {
         for (int j = 0; j < m_col; ++j) {
@@ -118,7 +117,8 @@ matrix matrix::operator*(int a) {
     return result;
 }
 
-matrix matrix::operator*(const matrix& other) {
+template<typename T>
+matrix<T> matrix<T>::operator*(const matrix& other) {
     if (m_col != other.m_row) {
         std::cout << "Can't multiply those matrices." << std::endl;
         return matrix();
@@ -135,7 +135,8 @@ matrix matrix::operator*(const matrix& other) {
     return result;
 }
 
-matrix& matrix::operator++() {
+template<typename T>
+matrix<T>& matrix<T>::operator++() {
     for (int i = 0; i < m_row; ++i) {
         for (int j = 0; j < m_col; ++j) {
             ++m_matrix[i][j];
@@ -144,32 +145,38 @@ matrix& matrix::operator++() {
     return *this;
 }
 
-matrix matrix::operator++(int) {
+template <typename T>
+matrix<T> matrix<T>::operator++(int) {
     matrix temp(*this);
     for (int i = 0; i < m_row; ++i) {
         for (int j = 0; j < m_col; ++j) {
-            m_matrix[i][j]++;
+            ++m_matrix[i][j];
         }
     }
     return temp;
 }
-std::ostream& operator<<(std::ostream& os, const matrix& mat) {
-    for (int i = 0; i < mat.m_row; ++i) {
-        for (int j = 0; j < mat.m_col; ++j) {
-            os << mat.m_matrix[i][j] << "  ";
-        }
-        os << '\n';
-    }
+/*
+template <typename T>
+std::ostream& operator<<(std::ostream& os, const matrix<T>& mat) {
+     for (int i = 0; i < mat.m_row; ++i) {
+         for (int j = 0; j < mat.m_col; ++j) {
+             os << mat.m_matrix[i][j] << "  ";
+         }
+         os << '\n';
+     }
     return os;
 }
-int* matrix::operator[](int index) {
+
+
+template <typename T>
+T* matrix<T>::operator[](int index) {
     if (index < 0 || index >= m_row) {
         std::cout << "Seg fault." << std::endl;
         return nullptr;
     }
     return m_matrix[index];
 }
-/*
+
 bool matrix::readFromFile(const std::string& filename) {
         std::ifstream file(filename);
         if (!file) {

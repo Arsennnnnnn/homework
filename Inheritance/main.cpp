@@ -9,6 +9,6 @@
 #include "Amphibian.h"
 
 int main() {
-    
+
     return 0;
 }

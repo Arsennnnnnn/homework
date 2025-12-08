@@ -7,4 +7,6 @@ add_executable(Matrix
         main.cpp
         classMatrix.cpp
         ChessBoard.cpp
+        Figure.cpp
+        Figure.h
 )
