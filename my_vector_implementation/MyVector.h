@@ -1,7 +1,6 @@
 #ifndef MYVECTOR_H
 #define MYVECTOR_H
 
-
 #include <iostream>
 #include <initializer_list>
 #include <utility>
@@ -139,8 +138,5 @@ public:
         std::cout << std::endl;
     }
 };
-
-
-
 
 #endif //MYVECTOR_H
