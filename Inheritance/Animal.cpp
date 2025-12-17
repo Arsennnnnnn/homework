@@ -23,7 +23,7 @@ Animal::Animal(const Animal &other) {
     ++count;
 }
 
-Animal::Animal(Animal && other) {
+Animal::Animal(Animal && other) noexcept {
     m_age = other.m_age;
     m_maxAge = other.m_maxAge;
     m_weight = other.m_weight;
@@ -35,7 +35,7 @@ Animal::Animal(Animal && other) {
     ++count;
 }
 
-Animal & Animal::operator=(Animal && other) {
+Animal & Animal::operator=(Animal && other) noexcept {
     if (this != &other) {
         m_age = other.m_age;
         m_maxAge = other.m_maxAge;

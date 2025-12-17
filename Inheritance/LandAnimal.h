@@ -3,7 +3,7 @@
 
 #include "Animal.h"
 //abstract
-class LandAnimal : virtual Animal {
+class LandAnimal : virtual public Animal {
 public:
     LandAnimal() = default;
     ~LandAnimal() override = default;

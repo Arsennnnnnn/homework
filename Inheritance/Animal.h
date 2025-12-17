@@ -11,18 +11,16 @@ private:
     int m_height;
     static int count;
 public:
-    Animal();;
-
+    Animal();
+    Animal(int, int, int, int);
     Animal(const Animal &);
-
-    Animal(Animal &&);
-    Animal &operator=(Animal &&);
+    Animal(Animal &&) noexcept;
+    virtual ~Animal();
+    Animal &operator = (Animal &&) noexcept;
     bool operator>(const Animal &) const;
     bool operator<(const Animal &) const;
     bool operator==(const Animal &) const;
-    virtual ~Animal();
     static int getCount();
-    Animal(int, int, int, int);
     virtual void makeSound() = 0;
     virtual void Move() = 0;
 };
