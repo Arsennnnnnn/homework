@@ -3,15 +3,12 @@
 
 
 int main() {
-    LinkedList<int> head;
-    head.val = 1;
-    LinkedList<int> list(&head);
-    LinkedList<int> list2(&list);
-    list2.val = 2;
-    LinkedList<int> list3(&list2);
-    list3.val = 3;
-    std::cout << list.val << std::endl;
-    std::cout << list2.val << std::endl;
-    std::cout << list3.val << std::endl;
+    mstd::List<int> intList;
+
+    intList.push_back(10);
+    intList.push_back(20);
+    intList.push_back(30);
+    intList.push_front(5);
+    intList.insert(2, 15);
     return 0;
 }
