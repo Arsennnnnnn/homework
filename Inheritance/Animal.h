@@ -27,7 +27,18 @@ public:
             return a < b;
         }
     };
-
+    struct AnimalEqual {
+        bool operator()(const Animal& a, const Animal& b) const {
+            return a == b;
+        }
+    };
+    struct AnimalHash {
+        std::size_t operator()(const Animal& a) const {
+            std::size_t h1 = std::hash<int>{}(a.m_age);
+            std::size_t h2 = std::hash<int>{}(a.m_weight);
+            return h1 ^ (h2 << 1);
+        }
+    };
 };
 
 
