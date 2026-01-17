@@ -1,4 +1,6 @@
 #include <iostream>
+#include <set>
+
 #include "Dog.h"
 #include "Cat.h"
 #include "Elephant.h"
@@ -8,21 +10,14 @@
 #include "Zoo.h"
 #include "Amphibian.h"
 
-template <typename T>
-void checkAnimal(T* obj) {
-    if (dynamic_cast<Animal*>(obj)) {
-        std::cout << "obj is an animal" << std::endl;
-    } else {
-        std::cout << "obj is not an animal" << std::endl;;
-    }
-}
-
 
 
 int main() {
-    Dog dog("", "");
-    checkAnimal(&dog);
-    Amphibian a;
-    checkAnimal(&a);
+    Dog dog("Doberman", "Rex");
+
+    Dog dog1("Pit-Bull", "Lexa");
+    std::set<Dog, Animal::AnimalCompare> animals;
+    animals.insert(dog);
+    animals.insert(dog1);
     return 0;
 }
